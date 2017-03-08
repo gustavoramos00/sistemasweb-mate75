@@ -1,0 +1,11 @@
+package br.ufba.sistemasweb.repository;
+
+import br.ufba.sistemasweb.domain.Authority;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * Spring Data JPA repository for the Authority entity.
+ */
+public interface AuthorityRepository extends JpaRepository<Authority, String> {
+}
