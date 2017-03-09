@@ -42,6 +42,9 @@ public class CacheConfiguration {
             cm.createCache(br.ufba.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(br.ufba.domain.PersistentToken.class.getName(), jcacheConfiguration);
             cm.createCache(br.ufba.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
+            cm.createCache(br.ufba.domain.Ontology.class.getName(), jcacheConfiguration);
+            cm.createCache(br.ufba.domain.Rule.class.getName(), jcacheConfiguration);
+            cm.createCache(br.ufba.domain.RuleMatch.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

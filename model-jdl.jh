@@ -1,0 +1,20 @@
+entity Rule {
+	rule String
+}
+
+entity Ontology {
+	name String
+	content TextBlob
+}
+
+entity RuleMatch {
+	content String
+}
+
+relationship OneToOne {
+	Rule{ontology} to Ontology,
+    Rule{user} to User,
+    RuleMatch{rule} to Rule
+}
+
+service Rule with serviceClass

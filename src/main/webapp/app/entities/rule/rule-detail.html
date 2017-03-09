@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Rule</span> {{vm.rule.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Rule</span></dt>
+        <dd>
+            <span>{{vm.rule.rule}}</span>
+        </dd>
+        <dt><span>Ontology</span></dt>
+        <dd>
+            <a ui-sref="ontology-detail({id:vm.rule.ontology.id})">{{vm.rule.ontology.id}}</a>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+            {{vm.rule.user.id}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="rule-detail.edit({id:vm.rule.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

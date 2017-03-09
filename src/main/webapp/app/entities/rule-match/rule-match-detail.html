@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span>Rule Match</span> {{vm.ruleMatch.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span>Content</span></dt>
+        <dd>
+            <span>{{vm.ruleMatch.content}}</span>
+        </dd>
+        <dt><span>Rule</span></dt>
+        <dd>
+            <a ui-sref="rule-detail({id:vm.ruleMatch.rule.id})">{{vm.ruleMatch.rule.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="rule-match-detail.edit({id:vm.ruleMatch.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>
