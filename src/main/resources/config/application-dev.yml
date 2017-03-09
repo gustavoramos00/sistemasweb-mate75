@@ -26,8 +26,8 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:file:./target/h2db/db/app;DB_CLOSE_DELAY=-1
-        username: app
+        url: jdbc:h2:file:./target/h2db/db/sistemaswebapp;DB_CLOSE_DELAY=-1
+        username: sistemaswebapp
         password:
     h2:
         console:
@@ -57,7 +57,7 @@ liquibase:
 
 # ===================================================================
 # To enable SSL, generate a certificate using:
-# keytool -genkey -alias app -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+# keytool -genkey -alias sistemaswebapp -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
 #
 # You can also use Let's Encrypt:
 # https://maximilian-boehm.com/hp2121/Create-a-Java-Keystore-JKS-from-Let-s-Encrypt-Certificates.htm
@@ -70,7 +70,7 @@ liquibase:
 #        key-store: keystore.p12
 #        key-store-password: <your-password>
 #        keyStoreType: PKCS12
-#        keyAlias: app
+#        keyAlias: sistemaswebapp
 # ===================================================================
 server:
     port: 8080
@@ -89,14 +89,11 @@ jhipster:
             time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
             max-entries: 100 # Number of objects in each cache entry
     security:
-        authentication:
-            jwt:
-                secret: my-secret-token-to-change-in-production
-                # Token is valid 24 hours
-                token-validity-in-seconds: 86400
-                token-validity-in-seconds-for-remember-me: 2592000
+        remember-me:
+            # security key (this key should be unique for your application, and kept secret)
+            key: ac8cfd579fa9ea9767a31cb1abc9b38350b34fbf
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: app@localhost
+        from: sistemaswebapp@localhost
         base-url: http://127.0.0.1:8080
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
@@ -104,7 +101,7 @@ jhipster:
             enabled: false
             host: localhost
             port: 2003
-            prefix: app
+            prefix: sistemaswebapp
         prometheus: # Use the "prometheus" Maven profile to have the Prometheus dependencies
             enabled: false
             endpoint: /prometheusMetrics

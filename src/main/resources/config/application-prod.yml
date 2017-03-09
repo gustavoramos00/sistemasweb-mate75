@@ -21,8 +21,8 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/app
-        username: app
+        url: jdbc:postgresql://localhost:5432/sistemaswebapp
+        username: sistemaswebapp
         password:
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
@@ -47,7 +47,7 @@ liquibase:
 
 # ===================================================================
 # To enable SSL, generate a certificate using:
-# keytool -genkey -alias app -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+# keytool -genkey -alias sistemaswebapp -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
 #
 # You can also use Let's Encrypt:
 # https://maximilian-boehm.com/hp2121/Create-a-Java-Keystore-JKS-from-Let-s-Encrypt-Certificates.htm
@@ -60,7 +60,7 @@ liquibase:
 #        key-store: keystore.p12
 #        key-store-password: <your-password>
 #        keyStoreType: PKCS12
-#        keyAlias: app
+#        keyAlias: sistemaswebapp
 # ===================================================================
 server:
     port: 8080
@@ -85,14 +85,11 @@ jhipster:
             time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
             max-entries: 1000 # Number of objects in each cache entry
     security:
-        authentication:
-            jwt:
-                secret: c39048605065e21d28a2006a4467d461536300e2
-                # Token is valid 24 hours
-                token-validity-in-seconds: 86400
-                token-validity-in-seconds-for-remember-me: 2592000
+        remember-me:
+            # security key (this key should be unique for your application, and kept secret)
+            key: ac8cfd579fa9ea9767a31cb1abc9b38350b34fbf
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: app@localhost
+        from: sistemaswebapp@localhost
         base-url: http://my-server-url-to-change # Modify according to your server's URL
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
@@ -100,7 +97,7 @@ jhipster:
             enabled: false
             host: localhost
             port: 2003
-            prefix: app
+            prefix: sistemaswebapp
         prometheus:
             enabled: false
             endpoint: /prometheusMetrics

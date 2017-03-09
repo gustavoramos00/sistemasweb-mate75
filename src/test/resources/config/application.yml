@@ -16,12 +16,12 @@
 
 spring:
     application:
-        name: app
+        name: sistemaswebapp
     jackson:
         serialization.write_dates_as_timestamps: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:app;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:sistemaswebapp;DB_CLOSE_DELAY=-1
         name:
         username:
         password:
@@ -74,11 +74,9 @@ jhipster:
         max-pool-size: 50
         queue-capacity: 10000
     security:
-        authentication:
-            jwt:
-                secret: c39048605065e21d28a2006a4467d461536300e2
-                # Token is valid 24 hours
-                token-validity-in-seconds: 86400
+        remember-me:
+            # security key (this key should be unique for your application, and kept secret)
+            key: ac8cfd579fa9ea9767a31cb1abc9b38350b34fbf
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
 

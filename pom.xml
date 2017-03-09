@@ -9,11 +9,11 @@
         <relativePath />
     </parent>
 
-    <groupId>br.ufba.sistemasweb</groupId>
-    <artifactId>app</artifactId>
+    <groupId>br.ufba</groupId>
+    <artifactId>sistemaswebapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>App</name>
+    <name>Sistemaswebapp</name>
 
     <prerequisites>
         <maven>${maven.version}</maven>
@@ -34,7 +34,6 @@
         <javassist.version>3.21.0-GA</javassist.version>
         <jcache.version>1.0.0</jcache.version>
         <jhipster.server.version>1.1.0</jhipster.server.version>
-        <jjwt.version>0.7.0</jjwt.version>
         <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
         <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
         <logstash-logback-encoder.version>4.8</logstash-logback-encoder.version>
@@ -49,6 +48,7 @@
         <maven.version>3.0.0</maven.version>
         <metrics-spring.version>3.1.3</metrics-spring.version>
         <node.version>v6.9.5</node.version>
+        <npm.version>4.1.2</npm.version>
         <postgresql.version>9.4.1212</postgresql.version>
         <!-- These remain empty unless the corresponding profile is active -->
         <profile.no-liquibase />
@@ -94,7 +94,6 @@
         <springfox.version>2.6.1</springfox.version>
         <undertow.version>1.4.10.Final</undertow.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
-        <yarn.version>v0.20.3</yarn.version>
     </properties>
 
 
@@ -340,11 +339,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
         <!-- Spring Cloud -->
         <dependency>
             <groupId>net.logstash.logback</groupId>
@@ -536,11 +530,11 @@
                     <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
                     <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                     <driver>org.h2.Driver</driver>
-                    <url>jdbc:h2:file:./target/h2db/db/app</url>
+                    <url>jdbc:h2:file:./target/h2db/db/sistemaswebapp</url>
                     <defaultSchemaName></defaultSchemaName>
-                    <username>app</username>
+                    <username>sistemaswebapp</username>
                     <password></password>
-                    <referenceUrl>hibernate:spring:br.ufba.sistemasweb.domain?dialect=org.hibernate.dialect.H2Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
+                    <referenceUrl>hibernate:spring:br.ufba.domain?dialect=org.hibernate.dialect.H2Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>
                 </configuration>
@@ -584,7 +578,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker-maven-plugin.version}</version>
                 <configuration>
-                    <imageName>app</imageName>
+                    <imageName>sistemaswebapp</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <resources>
                         <resource>
@@ -634,8 +628,10 @@
                                         <artifactId>frontend-maven-plugin</artifactId>
                                         <versionRange>${frontend-maven-plugin.version}</versionRange>
                                         <goals>
-                                            <goal>install-node-and-yarn</goal>
-                                            <goal>yarn</goal>
+                                            <goal>install-node-and-npm</goal>
+                                            <goal>npm</goal>
+                                            <goal>bower</goal>
+                                            <goal>gulp</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
@@ -661,40 +657,6 @@
             <properties>
                 <profile.swagger>,swagger</profile.swagger>
             </properties>
-        </profile>
-        <profile>
-            <id>webpack</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.github.eirslett</groupId>
-                        <artifactId>frontend-maven-plugin</artifactId>
-                        <version>${frontend-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>install node and yarn</id>
-                                <goals>
-                                    <goal>install-node-and-yarn</goal>
-                                </goals>
-                                <configuration>
-                                    <nodeVersion>${node.version}</nodeVersion>
-                                    <yarnVersion>${yarn.version}</yarnVersion>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>webpack build dev</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>generate-resources</phase>
-                                <configuration>
-                                    <arguments>run webpack:build:dev</arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>dev</id>
@@ -777,32 +739,50 @@
                         <version>${frontend-maven-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>install node and yarn</id>
+                                <id>install node and npm</id>
                                 <goals>
-                                    <goal>install-node-and-yarn</goal>
+                                    <goal>install-node-and-npm</goal>
                                 </goals>
                                 <configuration>
                                     <nodeVersion>${node.version}</nodeVersion>
-                                    <yarnVersion>${yarn.version}</yarnVersion>
+                                    <npmVersion>${npm.version}</npmVersion>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>yarn install</id>
+                                <id>npm install</id>
                                 <goals>
-                                    <goal>yarn</goal>
+                                    <goal>npm</goal>
                                 </goals>
                                 <configuration>
                                     <arguments>install</arguments>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>webpack build prod</id>
+                                <id>bower install</id>
                                 <goals>
-                                    <goal>yarn</goal>
+                                    <goal>bower</goal>
                                 </goals>
-                                <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>run webpack:prod</arguments>
+                                    <arguments>install --no-color</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>gulp build</id>
+                                <goals>
+                                    <goal>gulp</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>build --no-notification</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>gulp test</id>
+                                <goals>
+                                    <goal>gulp</goal>
+                                </goals>
+                                <phase>test</phase>
+                                <configuration>
+                                    <arguments>test --no-notification</arguments>
                                 </configuration>
                             </execution>
                         </executions>

@@ -22,7 +22,7 @@
     </appender>
 -->
 
-    <logger name="br.ufba.sistemasweb" level="#logback.loglevel#"/>
+    <logger name="br.ufba" level="#logback.loglevel#"/>
 
     <logger name="io.github.jhipster" level="DEBUG"/>
 
